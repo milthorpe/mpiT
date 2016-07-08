@@ -11,7 +11,7 @@ IF(${OPENMPI})
         SET(LMPI "${MPI_ROOT}/lib/liboshmem.so")
         FILE(GLOB LMCA "${MPI_ROOT}/lib/openmpi/*.so")
 ELSE()
-        FILE(GLOB LMPI ${MPI_ROOT}/lib/*.so)
+        FILE(GLOB LMPI ${MPI_ROOT}/lib/libmpi*.so)
 ENDIF()
 
 message ("LMPI is ${LMPI}")

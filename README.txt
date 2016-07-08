@@ -19,6 +19,8 @@ mpirun -np 2 luajit test.lua
 
 -- Test asyncsgd
 cd asyncsgd
+wget http://cs.nyu.edu/~zsx/mnist10/test_32x32.th7 -O ~/data/torch7/mnist10/.
+wget http://cs.nyu.edu/~zsx/mnist10/train_32x32.th7 -O ~/data/torch7/mnist10/.
 -- test Torch on cpu
 luajit claunch.lua
 -- test Torch on gpu

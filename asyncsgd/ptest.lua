@@ -1,5 +1,6 @@
 -- mpirun -n 2 luajit ptest.lua
 
+local ITERATIONS = 10
 local ssize = 3*4096*4096
 local usecuda = false
 
@@ -55,15 +56,15 @@ else
    local pc = pClient(conf)
    pc:start(theta,grad)
 
-   local begin = os.time()
-   for t=1,3 do
-      print('rank' .. rank .. 'pingpong')
+   print('rank ' .. rank .. ' pingpong for ' .. ITERATIONS .. ' iterations')
+   local begin = sys.clock()
+   for t=1,ITERATIONS do
       pc:async_recv_param()
       pc:async_send_grad()
       pc:wait()
    end
-   local now = os.time()
-   print('rank ' .. rank .. ' bandwidth(bi-direction) is ' .. (2*ssize*4/(now-begin)/1024/1024) .. ' MBytes/sec')
+   local now = sys.clock()
+   print(string.format('rank %d bandwidth(bi-direction) is %.2f MBytes/sec', rank, (2*ssize*ITERATIONS/(now-begin)/1024/1024)))
    pc:stop()
    print('pc stopped')
 end
